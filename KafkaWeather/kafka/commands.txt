@@ -1,0 +1,20 @@
+cd C:\Users\nicoh\kafka
+C:\Users\nicoh\kafka\bin\windows\zookeeper-server-start.bat C:\Users\nicoh\kafka\config\zookeeper.properties
+
+C:\Users\nicoh\kafka\bin\windows\kafka-server-start.bat C:\Users\nicoh\kafka\config\server.properties
+
+C:\Users\nicoh\kafka\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic testWeather
+
+C:\Users\nicoh\kafka\bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --list
+
+C:\Users\nicoh\kafka\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic testWeather
+
+C:\Users\nicoh\kafka\bin\windows\kafka-console-consumer.bat --topic testWeather --bootstrap-server localhost:9092 --from-beginning
+
+C:\Users\nicoh\kafka\bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --delete --topic testWeather 
+
+ex
+
+C:\Users\nicoh\kafka\bin\windows\kafka-server-stop.bat .\config\server.properties
+
+
