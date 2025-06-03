@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading;
 
-namespace KafkaToGraphiteNet48
+namespace KafkaWeather
 {
     class Program
     {
@@ -17,6 +17,18 @@ namespace KafkaToGraphiteNet48
             string kafkaTopic = "weather";
             string groupId = "vlvs_inf22_graphite_consumer_group";
             string graphiteHost = "10.50.15.52";
+            string topicName = "vlvs_inf22_mgh_to_ju_ti_ni";
+
+            var cts = new CancellationTokenSource();
+
+            Console.CancelKeyPress += (s, e) =>
+            {
+                e.Cancel = true;
+                cts.Cancel();
+            };
+
+            var producer = new CpuLoadProducer(kafkaBootstrapServers, topicName);
+            producer.Run(cts.Token);
 
             using (var consumer = new WeatherConsumer(kafkaBootstrapServers, kafkaTopic, groupId, graphiteHost))
             {
